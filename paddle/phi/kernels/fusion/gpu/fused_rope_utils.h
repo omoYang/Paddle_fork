@@ -127,11 +127,11 @@ __global__ void FusedRopeKernelImpl(const T* src,
   // copy the rest
   if (d > d2) {
 #pragma unroll
-    for (int d_id = d2 + threadIdx.x; d_id < d; d_id += blockDim.x) {
+    for (IndexT d_id = d2 + threadIdx.x; d_id < d; d_id += blockDim.x) {
 #pragma unroll
-      for (int h_id = threadIdx.y; h_id < h; h_id += blockDim.y) {
-        int offset_src = offset_block + h_id * stride_h + d_id * stride_d;
-        int offset_dst =
+      for (IndexT h_id = threadIdx.y; h_id < h; h_id += blockDim.y) {
+        IndexT offset_src = offset_block + h_id * stride_h + d_id * stride_d;
+        IndexT offset_dst =
             offset_block_dst + h_id * o_stride_h + d_id * o_stride_d;
         dst[offset_dst] = src[offset_src];
       }
@@ -219,11 +219,11 @@ __global__ void FusedRopeGradKernelImpl(const T* src,
   // copy the rest
   if (d > d2) {
 #pragma unroll
-    for (int d_id = d2 + threadIdx.x; d_id < d; d_id += blockDim.x) {
+    for (IndexT d_id = d2 + threadIdx.x; d_id < d; d_id += blockDim.x) {
 #pragma unroll
-      for (int h_id = threadIdx.y; h_id < h; h_id += blockDim.y) {
-        int offset_src = offset_block + h_id * stride_h + d_id * stride_d;
-        int offset_dst =
+      for (IndexT h_id = threadIdx.y; h_id < h; h_id += blockDim.y) {
+        IndexT offset_src = offset_block + h_id * stride_h + d_id * stride_d;
+        IndexT offset_dst =
             offset_block_dst + h_id * o_stride_h + d_id * o_stride_d;
         dst[offset_dst] = src[offset_src];
       }
